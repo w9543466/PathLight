@@ -25,6 +25,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "environment"
+    productFlavors {
+        dev {
+            dimension "environment"
+            applicationIdSuffix ".dev"
+            buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8082\""
+        }
+        prod {
+            dimension "environment"
+            buildConfigField "String", "BASE_URL", "\"https://<url>\""
+        }
+    }
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        def buildType = variant.buildType.name
+        if (names.contains("dev") && buildType.contains("release")) {
+            setIgnore(true)
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -49,6 +68,10 @@ dependencies {
 
     implementation 'androidx.core:core-splashscreen:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
