@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,43 +40,57 @@ public class ApiProvider {
                 .build();
     }
 
-    public <T extends BaseResponse> void get(Call<T> call, Class<T> clazz, ResponseCallback<T> callback) {
-        call.enqueue(new Callback<T>() {
-            @Override
-            public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
-                T t = null;
+    public <T extends BaseResponse> void format(Call<RawResponse<T>> call, Class<T> clazz, ResponseCallback<T> callback) {
+        call(call, response -> {
+            T data = response.getData();
+            if (data == null) {
                 try {
-                    if (response.isSuccessful()) {
-                        t = response.body();
-                        if (t == null) {
-                            t = clazz.newInstance();
-                            t.setSuccess(true);
-                            t.setMessage(response.message());
-                        }
-                    } else {
-                        String errorResponse = response.errorBody().string();
-                        Gson gson = new Gson();
-                        BaseResponse resp = gson.fromJson(errorResponse, BaseResponse.class);
-                        t = clazz.newInstance();
-                        t.setSuccess(false);
-                        t.setMessage(resp.getMessage());
-                    }
-                } catch (IllegalAccessException | InstantiationException | IOException e) {
-                    e.printStackTrace();
-                }
-                callback.onResponse(t);
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<T> call, @NonNull Throwable throwable) {
-                try {
-                    T t = clazz.newInstance();
-                    t.setSuccess(false);
-                    t.setMessage(throwable.getMessage());
-                    callback.onResponse(t);
+                    data = clazz.newInstance();
+                    data.setSuccess(response.isSuccess());
+                    data.setMessage(response.getMessage());
                 } catch (IllegalAccessException | InstantiationException e) {
                     e.printStackTrace();
                 }
+            }
+            callback.onResponse(data);
+        });
+    }
+
+    public <T> void call(Call<RawResponse<T>> call, ResponseCallback<RawResponse<T>> callback) {
+        call.enqueue(new Callback<RawResponse<T>>() {
+            @Override
+            public void onResponse(@NonNull Call<RawResponse<T>> call, @NonNull Response<RawResponse<T>> response) {
+                RawResponse<T> rawResponse = new RawResponse<>();
+                try {
+                    if (response.isSuccessful()) {
+                        rawResponse = response.body();
+                    } else {
+                        ResponseBody responseBody = response.errorBody();
+                        if (responseBody != null) {
+                            String errorResponse = responseBody.string();
+                            Gson gson = new Gson();
+                            rawResponse = gson.fromJson(errorResponse, RawResponse.class);
+                        } else {
+                            rawResponse = new RawResponse<>();
+                            rawResponse.setSuccess(false);
+                            rawResponse.setMessage("No error received from server");
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    rawResponse.setSuccess(false);
+                    rawResponse.setMessage(e.getMessage());
+                }
+                callback.onResponse(rawResponse);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RawResponse<T>> call, @NonNull Throwable throwable) {
+                throwable.printStackTrace();
+                RawResponse<T> rawResponse = new RawResponse<>();
+                rawResponse.setSuccess(false);
+                rawResponse.setMessage(throwable.getMessage());
+                callback.onResponse(rawResponse);
             }
         });
     }
