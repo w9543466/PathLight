@@ -16,6 +16,8 @@ public class LoginViewModel extends ViewModel {
     private final ObservableField<Boolean> loginEnabled = new ObservableField<>(true);
     private final ObservableField<String> loginError = new ObservableField<>("");
 
+    final MutableLiveData<LoginResponse> loginLiveData = new MutableLiveData<>();
+
     public ObservableField<Boolean> getLoginEnabled() {
         return loginEnabled;
     }
@@ -44,26 +46,22 @@ public class LoginViewModel extends ViewModel {
         this.password.set(password);
     }
 
-    public MutableLiveData<LoginResponse> doLogin() {
+    public void doLogin() {
         loginEnabled.set(false);
         loginError.set("");
         loginProgress.set(true);
-        final MutableLiveData<LoginResponse> liveData = new MutableLiveData<>();
-        if (!validateLoginForm(liveData)) {
-            return liveData;
-        }
+        if (!validateLoginForm()) return;
         authRepo.login(emailId.get(), password.get(), role.get().getRole(), response -> {
             loginProgress.set(false);
             if (!response.isSuccess()) {
                 loginError.set(response.getMessage());
                 loginEnabled.set(true);
             }
-            liveData.postValue(response);
+            loginLiveData.postValue(response);
         });
-        return liveData;
     }
 
-    private boolean validateLoginForm(MutableLiveData<LoginResponse> liveData) {
+    private boolean validateLoginForm() {
         LoginResponse failResp = new LoginResponse();
         failResp.setSuccess(false);
         boolean emailEmpty = emailId.get().isEmpty();
@@ -72,7 +70,7 @@ public class LoginViewModel extends ViewModel {
         if (pwdEmpty) loginError.set("Please enter password");
 
         if (emailEmpty || pwdEmpty) {
-            liveData.postValue(failResp);
+            loginLiveData.postValue(failResp);
             loginProgress.set(false);
             loginEnabled.set(true);
             return false;

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import uk.ac.tees.w9543466.pathlight.MainActivity;
+import uk.ac.tees.w9543466.pathlight.home.MainActivity;
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void observeLogin() {
-        viewModel.doLogin().observe(this, response -> {
+        viewModel.loginLiveData.observe(this, response -> {
             if (response.isSuccess()) {
                 finish();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        viewModel.doLogin();
     }
 
     private void setUpClicks() {

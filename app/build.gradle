@@ -27,14 +27,14 @@ android {
     }
     flavorDimensions "environment"
     productFlavors {
-        dev {
+        local {
             dimension "environment"
             applicationIdSuffix ".dev"
             buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8082\""
         }
-        prod {
+        cloud {
             dimension "environment"
-            buildConfigField "String", "BASE_URL", "\"https://<url>\""
+            buildConfigField "String", "BASE_URL", "\"https://trim-ruler-367314.nw.r.appspot.com\""
         }
     }
     variantFilter { variant ->
