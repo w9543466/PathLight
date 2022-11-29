@@ -25,6 +25,7 @@
         app:layout_constraintGuide_percent="0.35" />
 
     <include
+        android:id="@+id/introContainer"
         layout="@layout/layout_intro_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
