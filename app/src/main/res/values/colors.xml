@@ -7,6 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
     <color name="blue">#3324B0</color>
+
+    <color name="button_bg_color">#E8DEF8</color>
+
+    <color name="text_color_on_surface">@color/white</color>
+    <color name="text_color">@color/black</color>
+    <color name="divider_color">@android:color/secondary_text_dark</color>
+    <color name="text_highlight">#5B57F1</color>
 </resources>

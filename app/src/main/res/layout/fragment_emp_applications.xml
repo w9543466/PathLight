@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".employer.dashboard.EmployerApplicationFragment">
+
+    <TextView
+        android:id="@+id/textTitle"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="Here you can see all the applications for the works you posted"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:dividerColor="@color/divider_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rvApplications"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/materialDivider"-->
+<!--        app:reverseLayout="false"-->
+<!--        tools:itemCount="4"-->
+<!--        tools:listitem="@layout/layout_work_item"-->
+<!--        tools:visibility="visible" />-->
+
+<!--    <include-->
+<!--        android:id="@+id/noDataView"-->
+<!--        layout="@layout/layout_no_data"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="@{viewModel.dataStatus == DataStatus.EMPTY  ? View.VISIBLE : View.GONE}"-->
+<!--        app:buttonText="@{`Create Work`}"-->
+<!--        app:emptyText="@{`You haven't created any works yet`}"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/materialDivider"-->
+<!--        tools:visibility="gone" />-->
+
+<!--    <include-->
+<!--        android:id="@+id/errorView"-->
+<!--        layout="@layout/layout_no_data"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="@{viewModel.dataStatus == DataStatus.ERROR  ? View.VISIBLE : View.GONE}"-->
+<!--        app:buttonText="@{`Retry`}"-->
+<!--        app:emptyText="@{`We are unable to reach our server right now. Please try again later.`}"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/materialDivider"-->
+<!--        tools:visibility="gone" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

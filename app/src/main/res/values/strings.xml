@@ -9,4 +9,7 @@
     <string name="input_pwd">Password</string>
     <string name="text_forgot_password">Forgot Password ?</string>
     <string name="text_login_as_employer">Login as Employer</string>
+    <string name="title_home">Home</string>
+    <string name="title_applications">Applications</string>
+    <string name="title_profile">Profile</string>
 </resources>

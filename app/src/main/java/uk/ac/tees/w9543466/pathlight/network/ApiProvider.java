@@ -1,5 +1,7 @@
 package uk.ac.tees.w9543466.pathlight.network;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
@@ -18,20 +20,38 @@ import uk.ac.tees.w9543466.pathlight.BaseResponse;
 import uk.ac.tees.w9543466.pathlight.BuildConfig;
 import uk.ac.tees.w9543466.pathlight.ResponseCallback;
 import uk.ac.tees.w9543466.pathlight.auth.LoginApi;
+import uk.ac.tees.w9543466.pathlight.auth.User;
+import uk.ac.tees.w9543466.pathlight.employer.EmployerApi;
+import uk.ac.tees.w9543466.pathlight.utils.PrefUtil;
 
 public class ApiProvider {
 
     private Retrofit retrofit;
+    private User user;
+
+    public ApiProvider(Context context) {
+        user = new PrefUtil(context).getLoginInfo();
+    }
+
+    public ApiProvider() {
+    }
 
     public LoginApi getLoginApi() {
         if (retrofit == null) init();
         return retrofit.create(LoginApi.class);
     }
 
+    public EmployerApi getEmployerApi() {
+        if (retrofit == null) init();
+        return retrofit.create(EmployerApi.class);
+    }
+
     private void init() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.level(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient client = builder.addInterceptor(new AuthInterceptor(user))
+                .addInterceptor(interceptor).build();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
@@ -51,6 +71,9 @@ public class ApiProvider {
                 } catch (IllegalAccessException | InstantiationException e) {
                     e.printStackTrace();
                 }
+            } else {
+                data.setSuccess(response.isSuccess());
+                data.setMessage(response.getMessage());
             }
             callback.onResponse(data);
         });

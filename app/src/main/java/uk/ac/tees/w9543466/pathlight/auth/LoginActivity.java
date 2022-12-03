@@ -6,8 +6,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import uk.ac.tees.w9543466.pathlight.home.MainActivity;
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityLoginBinding;
+import uk.ac.tees.w9543466.pathlight.employer.EmployerHome;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,10 +25,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void observeLogin() {
-        viewModel.loginLiveData.observe(this, response -> {
+        viewModel.getLoginLiveData().observe(this, response -> {
             if (response.isSuccess()) {
                 finish();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, EmployerHome.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

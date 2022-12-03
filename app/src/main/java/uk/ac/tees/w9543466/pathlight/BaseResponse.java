@@ -23,7 +23,7 @@ public class BaseResponse {
     @Override
     public String toString() {
         return "BaseResponse{" +
-                "status=" + success +
+                "success=" + success +
                 ", message='" + message + '\'' +
                 '}';
     }
