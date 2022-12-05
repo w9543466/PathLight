@@ -1,6 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="uk.ac.tees.w9543466.pathlight.employer.WorkViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnCreate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/topAppBarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/topAppBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:elevation="0dp"
+                        app:navigationIcon="@drawable/ic_arrow_back"
+                        app:title="Create work"
+                        app:titleCentered="true" />
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                <TextView
+                    android:id="@+id/textview"
+                    style="@style/TextAppearance.Material3.TitleSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Basic details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/topAppBarLayout" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextField"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="Enter a title for the work"
+                    app:layout_constraintEnd_toEndOf="@+id/textview"
+                    app:layout_constraintStart_toStartOf="@+id/textview"
+                    app:layout_constraintTop_toBottomOf="@+id/textview">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:text="@{viewModel.title}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/skills"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="Enter the skills required for this work"
+                    app:layout_constraintEnd_toEndOf="@+id/outlinedTextField"
+                    app:layout_constraintStart_toStartOf="@+id/outlinedTextField"
+                    app:layout_constraintTop_toBottomOf="@+id/outlinedTextField">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:text="@{viewModel.skills}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/totalRate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="Amount you are willing to pay"
+                    app:layout_constraintEnd_toEndOf="@+id/skills"
+                    app:layout_constraintStart_toStartOf="@+id/skills"
+                    app:layout_constraintTop_toBottomOf="@+id/skills">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@{viewModel.amount}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/startTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="When do want this work to start"
+                    app:layout_constraintEnd_toEndOf="@+id/totalRate"
+                    app:layout_constraintStart_toStartOf="@+id/totalRate"
+                    app:layout_constraintTop_toBottomOf="@+id/totalRate">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etStartTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:text="@{viewModel.startTime}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textview2"
+                    style="@style/TextAppearance.Material3.TitleSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Work Location"
+                    app:layout_constraintEnd_toEndOf="@+id/startTime"
+                    app:layout_constraintStart_toStartOf="@+id/startTime"
+                    app:layout_constraintTop_toBottomOf="@+id/startTime" />
+
+                <TextView
+                    android:id="@+id/textviewLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@{viewModel.locationInfo}"
+                    app:layout_constraintEnd_toEndOf="@+id/textview2"
+                    app:layout_constraintStart_toStartOf="@+id/textview2"
+                    app:layout_constraintTop_toBottomOf="@+id/textview2"
+                    tools:text="Capturing..." />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <include
+            android:id="@+id/btnContainer"
+            layout="@layout/layout_progress_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_margin="20dp"
+            app:btnEnabled="@{viewModel.proceedEnabled}"
+            app:btnText="@{`Create work`}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:progressVisible="@{viewModel.progress}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

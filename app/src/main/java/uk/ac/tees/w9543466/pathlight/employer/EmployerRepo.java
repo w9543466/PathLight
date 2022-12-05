@@ -2,6 +2,7 @@ package uk.ac.tees.w9543466.pathlight.employer;
 
 import android.content.Context;
 
+import uk.ac.tees.w9543466.pathlight.BlankResponse;
 import uk.ac.tees.w9543466.pathlight.ResponseCallback;
 import uk.ac.tees.w9543466.pathlight.network.ApiProvider;
 
@@ -21,5 +22,9 @@ public class EmployerRepo {
 
     public void getWorks(ResponseCallback<WorkResponse> callback) {
         provider.format(services.getWorks(), WorkResponse.class, callback);
+    }
+
+    public void createWork(WorkRequest request, ResponseCallback<BlankResponse> callback) {
+        provider.format(services.createWork(request), BlankResponse.class, callback);
     }
 }
