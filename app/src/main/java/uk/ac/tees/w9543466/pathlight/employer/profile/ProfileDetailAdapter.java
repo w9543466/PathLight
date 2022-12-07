@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import uk.ac.tees.w9543466.pathlight.KeyValueModel;
 import uk.ac.tees.w9543466.pathlight.databinding.LayoutProfileDetailItemBinding;
-import uk.ac.tees.w9543466.pathlight.employer.KeyValueModel;
 
 public class ProfileDetailAdapter extends ListAdapter<KeyValueModel, ProfileDetailAdapter.WorkDetailVh> {
 

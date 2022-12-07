@@ -1,4 +1,4 @@
-package uk.ac.tees.w9543466.pathlight.employer;
+package uk.ac.tees.w9543466.pathlight;
 
 import java.util.Objects;
 

@@ -10,7 +10,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import uk.ac.tees.w9543466.pathlight.R;
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityWorkDetailsBinding;
-import uk.ac.tees.w9543466.pathlight.employer.NewWorkActivity;
 import uk.ac.tees.w9543466.pathlight.employer.applications.ApplicationsActivity;
 
 public class WorkDetailActivity extends AppCompatActivity {

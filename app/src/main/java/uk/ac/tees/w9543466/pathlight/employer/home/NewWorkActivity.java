@@ -1,4 +1,4 @@
-package uk.ac.tees.w9543466.pathlight.employer;
+package uk.ac.tees.w9543466.pathlight.employer.home;
 
 import android.Manifest;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityNewWorkBinding;
+import uk.ac.tees.w9543466.pathlight.employer.works.WorkViewModel;
 import uk.ac.tees.w9543466.pathlight.utils.DateTimePickerUtil;
 import uk.ac.tees.w9543466.pathlight.utils.LocationUtil;
 

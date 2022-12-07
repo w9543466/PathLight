@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="uk.ac.tees.w9543466.pathlight.employer.WorkViewModel" />
+            type="uk.ac.tees.w9543466.pathlight.employer.works.WorkViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="uk.ac.tees.w9543466.pathlight.employer.KeyValueModel" />
+            type="uk.ac.tees.w9543466.pathlight.KeyValueModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

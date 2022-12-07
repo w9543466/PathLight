@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import uk.ac.tees.w9543466.pathlight.databinding.LayoutWorkDetailItemBinding;
-import uk.ac.tees.w9543466.pathlight.employer.KeyValueModel;
+import uk.ac.tees.w9543466.pathlight.KeyValueModel;
 
 public class WorkDetailAdapter extends ListAdapter<KeyValueModel, WorkDetailAdapter.WorkDetailVh> {
 

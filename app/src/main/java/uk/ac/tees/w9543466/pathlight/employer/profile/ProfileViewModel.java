@@ -15,8 +15,7 @@ import uk.ac.tees.w9543466.pathlight.db.PathLightDatabase;
 import uk.ac.tees.w9543466.pathlight.db.ProfileDao;
 import uk.ac.tees.w9543466.pathlight.db.ProfileEntity;
 import uk.ac.tees.w9543466.pathlight.employer.EmployerRepo;
-import uk.ac.tees.w9543466.pathlight.employer.KeyValueModel;
-import uk.ac.tees.w9543466.pathlight.employer.ProfileResponse;
+import uk.ac.tees.w9543466.pathlight.KeyValueModel;
 import uk.ac.tees.w9543466.pathlight.utils.ThreadWorker;
 
 public class ProfileViewModel extends AndroidViewModel {

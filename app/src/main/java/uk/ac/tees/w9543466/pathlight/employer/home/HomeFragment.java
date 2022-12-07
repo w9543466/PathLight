@@ -12,8 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import uk.ac.tees.w9543466.pathlight.databinding.FragmentHomeBinding;
-import uk.ac.tees.w9543466.pathlight.employer.MyWorkAdapter;
-import uk.ac.tees.w9543466.pathlight.employer.NewWorkActivity;
+import uk.ac.tees.w9543466.pathlight.employer.works.MyWorkAdapter;
 import uk.ac.tees.w9543466.pathlight.employer.profile.ProfileActivity;
 import uk.ac.tees.w9543466.pathlight.employer.profile.ProfileViewModel;
 

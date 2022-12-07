@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="uk.ac.tees.w9543466.pathlight.employer.WorkItem" />
+            type="uk.ac.tees.w9543466.pathlight.employer.works.WorkItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

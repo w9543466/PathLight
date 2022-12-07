@@ -35,7 +35,7 @@
             android:exported="false"
             android:theme="@style/Theme.PathLight.LightStatusBar" />
         <activity
-            android:name=".employer.EmployerHome"
+            android:name=".employer.home.EmployerHome"
             android:exported="false"
             android:theme="@style/Theme.PathLight.LightStatusBar" />
         <activity
@@ -55,7 +55,7 @@
             android:exported="false"
             android:theme="@style/Theme.PathLight.LightStatusBar" />
         <activity
-            android:name=".employer.NewWorkActivity"
+            android:name=".employer.home.NewWorkActivity"
             android:exported="false"
             android:theme="@style/Theme.PathLight.LightStatusBar" />
     </application>

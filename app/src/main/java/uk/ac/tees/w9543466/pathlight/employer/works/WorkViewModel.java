@@ -1,4 +1,4 @@
-package uk.ac.tees.w9543466.pathlight.employer;
+package uk.ac.tees.w9543466.pathlight.employer.works;
 
 import static uk.ac.tees.w9543466.pathlight.utils.TextUtil.isValid;
 
@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import java.util.Date;
 
 import uk.ac.tees.w9543466.pathlight.BlankResponse;
+import uk.ac.tees.w9543466.pathlight.employer.EmployerRepo;
 import uk.ac.tees.w9543466.pathlight.utils.TimeFormatterUtil;
 
 public class WorkViewModel extends AndroidViewModel {

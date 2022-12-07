@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import uk.ac.tees.w9543466.pathlight.auth.IntroActivity;
 import uk.ac.tees.w9543466.pathlight.auth.UserRole;
-import uk.ac.tees.w9543466.pathlight.employer.EmployerHome;
+import uk.ac.tees.w9543466.pathlight.employer.home.EmployerHome;
 import uk.ac.tees.w9543466.pathlight.utils.PrefUtil;
 
 public class RoutingActivity extends AppCompatActivity {

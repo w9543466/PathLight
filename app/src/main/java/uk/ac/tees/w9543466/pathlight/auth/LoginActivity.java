@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityLoginBinding;
-import uk.ac.tees.w9543466.pathlight.employer.EmployerHome;
+import uk.ac.tees.w9543466.pathlight.employer.home.EmployerHome;
 
 public class LoginActivity extends AppCompatActivity {
 

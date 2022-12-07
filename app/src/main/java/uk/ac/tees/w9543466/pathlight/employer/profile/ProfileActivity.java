@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
 
-import uk.ac.tees.w9543466.pathlight.R;
+import uk.ac.tees.w9543466.pathlight.KeyValueModel;
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityProfileBinding;
-import uk.ac.tees.w9543466.pathlight.employer.KeyValueModel;
 
 public class ProfileActivity extends AppCompatActivity {
 

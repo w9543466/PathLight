@@ -18,7 +18,7 @@ import uk.ac.tees.w9543466.pathlight.db.PathLightDatabase;
 import uk.ac.tees.w9543466.pathlight.db.WorkDao;
 import uk.ac.tees.w9543466.pathlight.db.WorkEntity;
 import uk.ac.tees.w9543466.pathlight.employer.EmployerRepo;
-import uk.ac.tees.w9543466.pathlight.employer.WorkItem;
+import uk.ac.tees.w9543466.pathlight.employer.works.WorkItem;
 import uk.ac.tees.w9543466.pathlight.utils.ThreadWorker;
 
 public class HomeViewModel extends AndroidViewModel {
