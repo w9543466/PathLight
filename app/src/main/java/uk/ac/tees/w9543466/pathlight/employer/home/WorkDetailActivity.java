@@ -11,6 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import uk.ac.tees.w9543466.pathlight.R;
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityWorkDetailsBinding;
 import uk.ac.tees.w9543466.pathlight.employer.NewWorkActivity;
+import uk.ac.tees.w9543466.pathlight.employer.applications.ApplicationsActivity;
 
 public class WorkDetailActivity extends AppCompatActivity {
 
@@ -39,15 +40,16 @@ public class WorkDetailActivity extends AppCompatActivity {
 
     private void setupAdapter() {
         binding.workDetailsLayout.recyclerView.setAdapter(adapter);
-        viewModel.getSelectedWork().observe(this, data -> {
-            adapter.submitList(data.displayableList());
-        });
+        viewModel.getSelectedWork().observe(this, data -> adapter.submitList(data.displayableList()));
     }
 
     private void setupClickers() {
         binding.workDetailsLayout.button2.setOnClickListener(v -> {
-            //navigate to applications
+            Intent intent = new Intent(this, ApplicationsActivity.class);
+            intent.putExtra(ApplicationsActivity.BUNDLE_KEY_WORK_ID, viewModel.getSelectedWorkId());
+            startActivity(intent);
         });
+
         binding.topAppBar.setNavigationOnClickListener(v -> finish());
         binding.topAppBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.editWork) {

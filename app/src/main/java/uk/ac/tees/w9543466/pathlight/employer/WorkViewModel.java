@@ -9,10 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
 
 import java.util.Date;
+
+import uk.ac.tees.w9543466.pathlight.BlankResponse;
+import uk.ac.tees.w9543466.pathlight.utils.TimeFormatterUtil;
 
 public class WorkViewModel extends AndroidViewModel {
 
@@ -27,6 +32,7 @@ public class WorkViewModel extends AndroidViewModel {
     public ObservableBoolean proceedEnabled = new ObservableBoolean(false);
     public ObservableBoolean progress = new ObservableBoolean(false);
     private Location location;
+    private final MutableLiveData<BlankResponse> createWorkLiveData = new MutableLiveData<>();
 
     public WorkViewModel(@NonNull Application application) {
         super(application);
@@ -59,15 +65,23 @@ public class WorkViewModel extends AndroidViewModel {
             request.setTotalRate(Double.parseDouble(amountValue));
             request.setLat(location.getLatitude());
             request.setLng(location.getLongitude());
-            request.setStartTime(Long.parseLong(startTimeValue));
+            request.setStartTime(TimeFormatterUtil.toMillis(startTimeValue));
+            proceedEnabled.set(false);
             progress.set(true);
             employerRepo.createWork(request, response -> {
-                if (response.isSuccess()) {
-                    progress.set(false);
-                }
+                proceedEnabled.set(true);
+                progress.set(false);
+                createWorkLiveData.postValue(response);
             });
         } else {
-            //TODO
+            BlankResponse value = new BlankResponse();
+            value.setSuccess(false);
+            value.setMessage("All fields are required");
+            createWorkLiveData.postValue(value);
         }
+    }
+
+    public LiveData<BlankResponse> getCreateWorkLiveData() {
+        return createWorkLiveData;
     }
 }

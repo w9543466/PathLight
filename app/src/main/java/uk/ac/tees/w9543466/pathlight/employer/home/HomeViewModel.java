@@ -29,6 +29,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     private final MutableLiveData<List<WorkItem>> workLiveData = new MutableLiveData<>();
     private final MutableLiveData<WorkItem> selectedWork = new MutableLiveData<>();
+    private long selectedWorkId = -1;
     public ObservableField<DataStatus> workDataStatus = new ObservableField<>(DataStatus.LOADING);
 
     public HomeViewModel(@NonNull Application application) {
@@ -80,6 +81,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public void onItemSelected(long workId) {
+        selectedWorkId = workId;
         ThreadWorker.execute(() -> {
             WorkEntity data = workDao.get(workId);
             WorkItem item = gson.fromJson(gson.toJson(data), WorkItem.class);
@@ -87,7 +89,11 @@ public class HomeViewModel extends AndroidViewModel {
         });
     }
 
-    public void deleteSelectedWork() {
+    public long getSelectedWorkId() {
+        return selectedWorkId;
+    }
 
+    public void deleteSelectedWork() {
+        //TODO
     }
 }

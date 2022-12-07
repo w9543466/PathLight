@@ -39,6 +39,10 @@
             android:exported="false"
             android:theme="@style/Theme.PathLight.LightStatusBar" />
         <activity
+            android:name=".employer.applications.ApplicationsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PathLight.LightStatusBar" />
+        <activity
             android:name=".auth.LoginActivity"
             android:exported="false"
             android:theme="@style/Theme.PathLight.LightStatusBar" />

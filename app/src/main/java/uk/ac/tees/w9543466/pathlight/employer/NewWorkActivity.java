@@ -1,8 +1,10 @@
 package uk.ac.tees.w9543466.pathlight.employer;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -31,19 +33,44 @@ public class NewWorkActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setupClickers();
         checkPermission();
+        observeCreateWork();
+    }
+
+    private void observeCreateWork() {
+        viewModel.getCreateWorkLiveData().observe(this, data -> {
+            if (data != null && data.isSuccess()) {
+                if (data.isSuccess()) {
+                    showSuccessDialog();
+                } else {
+                    Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "We are unable to reach our servers right now, please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showSuccessDialog() {
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
+        dialog.setTitle("Success");
+        dialog.setMessage("Work created successfully. Now workers will be seeing this work and you can see the applications in the work details page.");
+        dialog.setNeutralButton("Go to home", (dialog1, which) -> navigateToHome());
+        dialog.setOnDismissListener(dialog1 -> navigateToHome());
+        dialog.show();
+    }
+
+    private void navigateToHome() {
+        navigateUpTo(new Intent(NewWorkActivity.this, EmployerHome.class));
     }
 
     private void setupClickers() {
-        binding.etStartTime.setOnClickListener(v -> {
-            DateTimePickerUtil.openDatePicker(getSupportFragmentManager(), "Select work start date and time", true, date -> {
-                System.out.println("date: startTime = " + date.getTime());
-                viewModel.onStartTimeSelected(date.getTime());
-            });
-        });
+        binding.topAppBar.setNavigationOnClickListener(v -> finish());
+        binding.etStartTime.setOnClickListener(v ->
+                DateTimePickerUtil.openDatePicker(getSupportFragmentManager(), "Select work start date and time", true, date -> {
+                    viewModel.onStartTimeSelected(date.getTime());
+                }));
         binding.btnContainer.button2.setOnClickListener(v -> viewModel.createWork());
     }
-
-    private static final int RC_LOCATION = 243;
 
     ActivityResultLauncher<String[]> locationPermissionRequest = registerForActivityResult(new ActivityResultContracts
                     .RequestMultiplePermissions(), result -> {

@@ -69,12 +69,12 @@ public class LoginViewModel extends AndroidViewModel {
         String role = this.role.get().getRole();
         authRepo.login(emailId.get(), password.get(), role, response -> {
             loginProgress.set(false);
+            loginEnabled.set(true);
             if (response.isSuccess()) {
                 loginLiveData.postValue(response);
                 prefUtil.saveLoginInfo(emailId.get(), password.get(), role);
             } else {
                 loginError.set(response.getMessage());
-                loginEnabled.set(true);
             }
         });
     }

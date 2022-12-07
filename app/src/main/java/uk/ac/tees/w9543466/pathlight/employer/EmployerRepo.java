@@ -4,6 +4,7 @@ import android.content.Context;
 
 import uk.ac.tees.w9543466.pathlight.BlankResponse;
 import uk.ac.tees.w9543466.pathlight.ResponseCallback;
+import uk.ac.tees.w9543466.pathlight.employer.applications.ApplicationsResponse;
 import uk.ac.tees.w9543466.pathlight.network.ApiProvider;
 
 public class EmployerRepo {
@@ -26,5 +27,9 @@ public class EmployerRepo {
 
     public void createWork(WorkRequest request, ResponseCallback<BlankResponse> callback) {
         provider.format(services.createWork(request), BlankResponse.class, callback);
+    }
+
+    public void getApplications(long workId, ResponseCallback<ApplicationsResponse> callback) {
+        provider.format(services.getApplications(workId), ApplicationsResponse.class, callback);
     }
 }
