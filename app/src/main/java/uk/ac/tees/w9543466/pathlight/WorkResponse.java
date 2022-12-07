@@ -1,8 +1,9 @@
-package uk.ac.tees.w9543466.pathlight.employer.works;
+package uk.ac.tees.w9543466.pathlight;
 
 import java.util.List;
 
 import uk.ac.tees.w9543466.pathlight.BaseResponse;
+import uk.ac.tees.w9543466.pathlight.employer.works.WorkItem;
 
 public class WorkResponse extends BaseResponse {
 

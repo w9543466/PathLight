@@ -58,6 +58,10 @@
             android:name=".employer.home.NewWorkActivity"
             android:exported="false"
             android:theme="@style/Theme.PathLight.LightStatusBar" />
+        <activity
+            android:name=".worker.WorkerHome"
+            android:exported="false"
+            android:theme="@style/Theme.PathLight.LightStatusBar" />
     </application>
 
 </manifest>

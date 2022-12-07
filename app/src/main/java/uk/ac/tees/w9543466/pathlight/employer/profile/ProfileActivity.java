@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
                 adapter.submitList(details);
             }
         });
+        viewModel.getEmployerProfile();
     }
 
     private void setupAdapter() {

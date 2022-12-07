@@ -23,6 +23,7 @@ import uk.ac.tees.w9543466.pathlight.auth.LoginApi;
 import uk.ac.tees.w9543466.pathlight.auth.User;
 import uk.ac.tees.w9543466.pathlight.employer.EmployerApi;
 import uk.ac.tees.w9543466.pathlight.utils.PrefUtil;
+import uk.ac.tees.w9543466.pathlight.worker.WorkerApi;
 
 public class ApiProvider {
 
@@ -44,6 +45,11 @@ public class ApiProvider {
     public EmployerApi getEmployerApi() {
         if (retrofit == null) init();
         return retrofit.create(EmployerApi.class);
+    }
+
+    public WorkerApi getWorkerApi() {
+        if (retrofit == null) init();
+        return retrofit.create(WorkerApi.class);
     }
 
     private void init() {

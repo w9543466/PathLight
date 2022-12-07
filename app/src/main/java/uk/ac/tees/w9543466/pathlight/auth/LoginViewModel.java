@@ -71,6 +71,7 @@ public class LoginViewModel extends AndroidViewModel {
             loginProgress.set(false);
             loginEnabled.set(true);
             if (response.isSuccess()) {
+                response.setRole(UserRole.valueOf(role));
                 loginLiveData.postValue(response);
                 prefUtil.saveLoginInfo(emailId.get(), password.get(), role);
             } else {

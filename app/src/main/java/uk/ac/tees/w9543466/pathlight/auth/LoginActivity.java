@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityLoginBinding;
 import uk.ac.tees.w9543466.pathlight.employer.home.EmployerHome;
+import uk.ac.tees.w9543466.pathlight.worker.WorkerHome;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,10 +28,15 @@ public class LoginActivity extends AppCompatActivity {
     private void observeLogin() {
         viewModel.getLoginLiveData().observe(this, response -> {
             if (response.isSuccess()) {
+                Intent targetIntent;
+                if (response.getRole() == UserRole.EMPLOYER) {
+                    targetIntent = new Intent(LoginActivity.this, EmployerHome.class);
+                } else {
+                    targetIntent = new Intent(LoginActivity.this, WorkerHome.class);
+                }
                 finish();
-                Intent intent = new Intent(LoginActivity.this, EmployerHome.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                targetIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(targetIntent);
             }
         });
         viewModel.doLogin();

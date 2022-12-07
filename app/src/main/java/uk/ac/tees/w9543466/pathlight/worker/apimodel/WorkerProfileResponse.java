@@ -1,8 +1,8 @@
-package uk.ac.tees.w9543466.pathlight.employer.profile;
+package uk.ac.tees.w9543466.pathlight.worker.apimodel;
 
 import uk.ac.tees.w9543466.pathlight.BaseResponse;
 
-public class ProfileResponse extends BaseResponse {
+public class WorkerProfileResponse extends BaseResponse {
     private String firstName;
     private String lastName;
     private String email;

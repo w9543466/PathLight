@@ -3,8 +3,8 @@ package uk.ac.tees.w9543466.pathlight.employer.works;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import uk.ac.tees.w9543466.pathlight.WorkStatus;
 import uk.ac.tees.w9543466.pathlight.KeyValueModel;
+import uk.ac.tees.w9543466.pathlight.WorkStatus;
 
 public class WorkItem {
 
@@ -13,12 +13,36 @@ public class WorkItem {
     private String skills;
     private double lat;
     private double lng;
-    private double expiryDate;
-    private double startTime;
-    private double workDuration;
-    private double workDurationUnit;
+    private long startTime;
     private double totalRate;
     private String status;
+    private String createdBy;
+    private String employerName;
+    private boolean applied;
+
+    public boolean isApplied() {
+        return applied;
+    }
+
+    public void setApplied(boolean applied) {
+        this.applied = applied;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getEmployerName() {
+        return employerName;
+    }
+
+    public void setEmployerName(String employerName) {
+        this.employerName = employerName;
+    }
 
     public long getWorkId() {
         return workId;
@@ -60,15 +84,7 @@ public class WorkItem {
         this.lng = lng;
     }
 
-    public double getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(double expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public double getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
@@ -77,24 +93,8 @@ public class WorkItem {
         return startTime + "";
     }
 
-    public void setStartTime(double startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
-    }
-
-    public double getWorkDuration() {
-        return workDuration;
-    }
-
-    public void setWorkDuration(double workDuration) {
-        this.workDuration = workDuration;
-    }
-
-    public double getWorkDurationUnit() {
-        return workDurationUnit;
-    }
-
-    public void setWorkDurationUnit(double workDurationUnit) {
-        this.workDurationUnit = workDurationUnit;
     }
 
     public double getTotalRate() {
@@ -120,9 +120,8 @@ public class WorkItem {
     public ArrayList<KeyValueModel> displayableList() {
         ArrayList<KeyValueModel> list = new ArrayList<>();
         list.add(new KeyValueModel("Skills required", skills));
-        list.add(new KeyValueModel("Expires on", expiryDate + ""));//TODO format date
         list.add(new KeyValueModel("Starts on", startTime + ""));//TODO format date
-        list.add(new KeyValueModel("Duration", workDuration + " " + workDurationUnit));//TODO format
+        list.add(new KeyValueModel("Pays", totalRate + " GBP"));
         return list;
     }
 
@@ -131,11 +130,11 @@ public class WorkItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WorkItem workItem = (WorkItem) o;
-        return workId == workItem.workId && Double.compare(workItem.lat, lat) == 0 && Double.compare(workItem.lng, lng) == 0 && Double.compare(workItem.expiryDate, expiryDate) == 0 && Double.compare(workItem.startTime, startTime) == 0 && Double.compare(workItem.workDuration, workDuration) == 0 && Double.compare(workItem.workDurationUnit, workDurationUnit) == 0 && Double.compare(workItem.totalRate, totalRate) == 0 && Objects.equals(title, workItem.title) && Objects.equals(skills, workItem.skills) && Objects.equals(status, workItem.status);
+        return workId == workItem.workId && startTime == workItem.startTime && Objects.equals(title, workItem.title) && Objects.equals(createdBy, workItem.createdBy);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(workId, title, skills, lat, lng, expiryDate, startTime, workDuration, workDurationUnit, totalRate, status);
+        return Objects.hash(workId, title, startTime, createdBy);
     }
 }

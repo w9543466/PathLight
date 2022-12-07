@@ -9,6 +9,7 @@ import uk.ac.tees.w9543466.pathlight.auth.IntroActivity;
 import uk.ac.tees.w9543466.pathlight.auth.UserRole;
 import uk.ac.tees.w9543466.pathlight.employer.home.EmployerHome;
 import uk.ac.tees.w9543466.pathlight.utils.PrefUtil;
+import uk.ac.tees.w9543466.pathlight.worker.WorkerHome;
 
 public class RoutingActivity extends AppCompatActivity {
 
@@ -21,8 +22,7 @@ public class RoutingActivity extends AppCompatActivity {
             if (userRole == UserRole.EMPLOYER) {
                 startActivity(new Intent(this, EmployerHome.class));
             } else {
-                //TODO
-                //startActivity(new Intent(this, WorkerHome.class));
+                startActivity(new Intent(this, WorkerHome.class));
             }
         } else {
             startActivity(new Intent(this, IntroActivity.class));
