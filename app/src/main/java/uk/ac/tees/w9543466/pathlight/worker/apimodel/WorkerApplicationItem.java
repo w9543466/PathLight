@@ -1,9 +1,11 @@
 package uk.ac.tees.w9543466.pathlight.worker.apimodel;
 
 import java.time.Instant;
+import java.util.Objects;
 
 import uk.ac.tees.w9543466.pathlight.employer.applications.ApplicationStatus;
 import uk.ac.tees.w9543466.pathlight.employer.profile.EmployerProfileResponse;
+import uk.ac.tees.w9543466.pathlight.employer.works.WorkItem;
 
 public class WorkerApplicationItem {
     private Long id;
@@ -11,9 +13,9 @@ public class WorkerApplicationItem {
     private Long workId;
     private Double rate;
     private ApplicationStatus applicationStatus;
-    private Instant createdDate;
+    private long createdDate;
     private EmployerProfileResponse employer;
-    private WorkerProfileResponse work;
+    private WorkItem work;
 
     public Long getId() {
         return id;
@@ -55,11 +57,11 @@ public class WorkerApplicationItem {
         this.applicationStatus = applicationStatus;
     }
 
-    public Instant getCreatedDate() {
+    public long getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Instant createdDate) {
+    public void setCreatedDate(long createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -71,11 +73,24 @@ public class WorkerApplicationItem {
         this.employer = employer;
     }
 
-    public WorkerProfileResponse getWork() {
+    public WorkItem getWork() {
         return work;
     }
 
-    public void setWork(WorkerProfileResponse work) {
+    public void setWork(WorkItem work) {
         this.work = work;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WorkerApplicationItem that = (WorkerApplicationItem) o;
+        return Objects.equals(id, that.id) && Objects.equals(workerId, that.workerId) && Objects.equals(workId, that.workId) && applicationStatus == that.applicationStatus && Objects.equals(createdDate, that.createdDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, workerId, workId, applicationStatus, createdDate);
     }
 }

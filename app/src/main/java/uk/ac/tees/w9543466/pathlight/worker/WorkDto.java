@@ -1,15 +1,18 @@
 package uk.ac.tees.w9543466.pathlight.worker;
 
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
+
 import java.util.Objects;
 
 public class WorkDto {
     private long id;
-    private boolean applyEnabled;
-    private boolean applyInProgress;
-    private boolean alreadyApplied;
-    private String title;
-    private double startTime;
-    private double totalRate;
+    private final ObservableBoolean applyEnabled = new ObservableBoolean(true);
+    private final ObservableBoolean applyInProgress = new ObservableBoolean(false);
+    private final ObservableBoolean alreadyApplied = new ObservableBoolean(false);
+    private final ObservableField<String> title = new ObservableField<>();
+    private final ObservableField<String> startTime = new ObservableField<>();
+    private final ObservableField<String> totalRate = new ObservableField<>();
 
     public long getId() {
         return id;
@@ -19,69 +22,56 @@ public class WorkDto {
         this.id = id;
     }
 
-    public boolean isAlreadyApplied() {
+    public ObservableBoolean isAlreadyApplied() {
         return alreadyApplied;
     }
 
     public void setAlreadyApplied(boolean alreadyApplied) {
-        this.alreadyApplied = alreadyApplied;
+        this.alreadyApplied.set(alreadyApplied);
     }
 
-    public boolean isApplyEnabled() {
+    public ObservableBoolean isApplyEnabled() {
         return applyEnabled;
     }
 
     public void setApplyEnabled(boolean applyEnabled) {
-        this.applyEnabled = applyEnabled;
+        this.applyEnabled.set(applyEnabled);
     }
 
-    public boolean isApplyInProgress() {
+    public ObservableBoolean getApplyInProgress() {
         return applyInProgress;
     }
 
     public void setApplyInProgress(boolean applyInProgress) {
-        this.applyInProgress = applyInProgress;
+        this.applyInProgress.set(applyInProgress);
     }
 
-    public String getTitle() {
+    public ObservableField<String> getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title.set(title);
     }
 
-    public double getStartTime() {
+    public ObservableField<String> getStartTime() {
         return startTime;
     }
 
     public void setStartTime(double startTime) {
-        this.startTime = startTime;
+        this.startTime.set(startTime + "");
     }
 
-    public double getTotalRate() {
+    public ObservableField<String> getTotalRate() {
         return totalRate;
     }
 
     public void setTotalRate(double totalRate) {
-        this.totalRate = totalRate;
+        this.totalRate.set(totalRate + "");
     }
 
     public String getFormattedStartTime() {
         //TODO
         return startTime + "";
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WorkDto workDto = (WorkDto) o;
-        return id == workDto.id && Double.compare(workDto.startTime, startTime) == 0 && Double.compare(workDto.totalRate, totalRate) == 0 && Objects.equals(title, workDto.title);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, startTime, totalRate);
     }
 }

@@ -77,7 +77,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     public long getItemWorkId(int position) {
         WorkItem workItem = workLiveData.getValue().get(position);
-        return workItem.getWorkId();
+        return workItem.getId();
     }
 
     public void onItemSelected(long workId) {

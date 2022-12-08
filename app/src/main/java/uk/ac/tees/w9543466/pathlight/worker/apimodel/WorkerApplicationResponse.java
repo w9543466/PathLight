@@ -5,17 +5,20 @@ import java.util.List;
 import uk.ac.tees.w9543466.pathlight.BaseResponse;
 
 public class WorkerApplicationResponse extends BaseResponse {
-    public WorkerApplicationResponse(List<WorkerApplicationItem> works) {
-        this.works = works;
+    public WorkerApplicationResponse() {
     }
 
-    private List<WorkerApplicationItem> works;
-
-    public List<WorkerApplicationItem> getWorks() {
-        return works;
+    public WorkerApplicationResponse(List<WorkerApplicationItem> applications) {
+        this.applications = applications;
     }
 
-    public void setWorks(List<WorkerApplicationItem> works) {
-        this.works = works;
+    private List<WorkerApplicationItem> applications;
+
+    public List<WorkerApplicationItem> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<WorkerApplicationItem> applications) {
+        this.applications = applications;
     }
 }

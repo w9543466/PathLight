@@ -8,7 +8,7 @@ import uk.ac.tees.w9543466.pathlight.WorkStatus;
 
 public class WorkItem {
 
-    private long workId;
+    private long id;
     private String title;
     private String skills;
     private double lat;
@@ -44,12 +44,12 @@ public class WorkItem {
         this.employerName = employerName;
     }
 
-    public long getWorkId() {
-        return workId;
+    public long getId() {
+        return id;
     }
 
-    public void setWorkId(long workId) {
-        this.workId = workId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -130,11 +130,11 @@ public class WorkItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WorkItem workItem = (WorkItem) o;
-        return workId == workItem.workId && startTime == workItem.startTime && Objects.equals(title, workItem.title) && Objects.equals(createdBy, workItem.createdBy);
+        return id == workItem.id && startTime == workItem.startTime && Objects.equals(title, workItem.title) && Objects.equals(createdBy, workItem.createdBy);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(workId, title, startTime, createdBy);
+        return Objects.hash(id, title, startTime, createdBy);
     }
 }

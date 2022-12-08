@@ -48,7 +48,7 @@ public class WorkerJobsAdapter extends ListAdapter<WorkDto, WorkerJobsAdapter.Wo
                 @Override
                 public boolean areContentsTheSame(
                         @NonNull WorkDto oldUser, @NonNull WorkDto newUser) {
-                    return oldUser.equals(newUser);
+                    return oldUser.getId() == newUser.getId();
                 }
             };
 

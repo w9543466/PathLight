@@ -2,10 +2,12 @@ package uk.ac.tees.w9543466.pathlight.worker;
 
 import android.content.Context;
 
+import uk.ac.tees.w9543466.pathlight.BlankResponse;
 import uk.ac.tees.w9543466.pathlight.ResponseCallback;
 import uk.ac.tees.w9543466.pathlight.WorkResponse;
 import uk.ac.tees.w9543466.pathlight.employer.profile.EmployerProfileResponse;
 import uk.ac.tees.w9543466.pathlight.network.ApiProvider;
+import uk.ac.tees.w9543466.pathlight.worker.apimodel.ApplyWorkRequest;
 import uk.ac.tees.w9543466.pathlight.worker.apimodel.WorkerApplicationResponse;
 
 public class WorkerRepo {
@@ -27,5 +29,9 @@ public class WorkerRepo {
 
     public void getWorks(ResponseCallback<WorkResponse> callback) {
         provider.format(services.getAllWorks(), WorkResponse.class, callback);
+    }
+
+    public void apply(ApplyWorkRequest request, ResponseCallback<BlankResponse> callback) {
+        provider.format(services.apply(request), BlankResponse.class, callback);
     }
 }

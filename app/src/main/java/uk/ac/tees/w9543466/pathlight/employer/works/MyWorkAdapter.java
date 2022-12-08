@@ -42,7 +42,7 @@ public class MyWorkAdapter extends ListAdapter<WorkItem, MyWorkAdapter.WorkVh> {
                 @Override
                 public boolean areItemsTheSame(
                         @NonNull WorkItem oldUser, @NonNull WorkItem newUser) {
-                    return oldUser.getWorkId() == newUser.getWorkId();
+                    return oldUser.getId() == newUser.getId();
                 }
 
                 @Override

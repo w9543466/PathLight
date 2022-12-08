@@ -30,7 +30,7 @@ android {
         local {
             dimension "environment"
             applicationIdSuffix ".dev"
-            buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8082\""
+            buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8081\""
         }
         cloud {
             dimension "environment"
