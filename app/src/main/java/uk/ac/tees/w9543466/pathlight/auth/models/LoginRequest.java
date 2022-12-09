@@ -1,4 +1,4 @@
-package uk.ac.tees.w9543466.pathlight.auth;
+package uk.ac.tees.w9543466.pathlight.auth.models;
 
 public class LoginRequest {
     private String email;

@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import uk.ac.tees.w9543466.pathlight.auth.models.LoginResponse;
 import uk.ac.tees.w9543466.pathlight.utils.PrefUtil;
 
 public class LoginViewModel extends AndroidViewModel {

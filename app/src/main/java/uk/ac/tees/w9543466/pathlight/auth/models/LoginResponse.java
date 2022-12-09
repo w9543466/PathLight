@@ -1,6 +1,7 @@
-package uk.ac.tees.w9543466.pathlight.auth;
+package uk.ac.tees.w9543466.pathlight.auth.models;
 
 import uk.ac.tees.w9543466.pathlight.BaseResponse;
+import uk.ac.tees.w9543466.pathlight.auth.UserRole;
 
 public class LoginResponse extends BaseResponse {
     private UserRole role;

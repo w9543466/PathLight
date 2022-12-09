@@ -2,6 +2,7 @@ package uk.ac.tees.w9543466.pathlight.worker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
@@ -30,7 +31,7 @@ public class WorkerHome extends AppCompatActivity {
         binding.setViewModel(viewModel);
         binding.setProfileVm(profileVm);
         setContentView(binding.getRoot());
-        setUpClicks();
+        setUpClickers();
         setupAdapter();
         profileVm.getWorkerProfile();
     }
@@ -42,11 +43,12 @@ public class WorkerHome extends AppCompatActivity {
         viewModel.getWorkLiveData().observe(this, adapter::submitList);
     }
 
-    private void setUpClicks() {
+    private void setUpClickers() {
         binding.viewApplications.setOnClickListener(v -> startActivity(new Intent(WorkerHome.this, WorkerApplications.class)));
         adapter.setListener(this::promptProposedRate);
         binding.noDataView.btnAction.setOnClickListener(v -> viewModel.getAllWorks());
         binding.errorView.btnAction.setOnClickListener(v -> viewModel.getAllWorks());
+        binding.settings.setOnClickListener(v -> startActivity(new Intent(this, WorkerProfileActivity.class)));
     }
 
     private void promptProposedRate(int position) {
@@ -56,6 +58,7 @@ public class WorkerHome extends AppCompatActivity {
         dialog.setMessage("Do you want to accept the job with the total rate or do you want to propose a different amount?");
         EditText inputField = new EditText(this);
         inputField.setInputType(EditorInfo.TYPE_NUMBER_FLAG_DECIMAL);
+        inputField.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         dialog.setView(inputField);
         inputField.setText(String.valueOf(work.getTotalRate().get()));
         dialog.setPositiveButton("Accept / Propose", (dialog1, which) -> applyForWork(position, inputField.getText().toString()));

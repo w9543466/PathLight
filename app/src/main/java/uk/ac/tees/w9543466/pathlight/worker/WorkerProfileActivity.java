@@ -1,4 +1,4 @@
-package uk.ac.tees.w9543466.pathlight.employer.profile;
+package uk.ac.tees.w9543466.pathlight.worker;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import uk.ac.tees.w9543466.pathlight.KeyValueModel;
 import uk.ac.tees.w9543466.pathlight.RoutingActivity;
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityProfileBinding;
+import uk.ac.tees.w9543466.pathlight.employer.profile.ProfileDetailAdapter;
+import uk.ac.tees.w9543466.pathlight.employer.profile.ProfileViewModel;
 
-public class ProfileActivity extends AppCompatActivity {
+public class WorkerProfileActivity extends AppCompatActivity {
 
     private ProfileViewModel viewModel;
     private ActivityProfileBinding binding;
@@ -42,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
         binding.btnLogout.setOnClickListener(v -> {
             viewModel.logout();
             finish();
-            Intent targetIntent = new Intent(ProfileActivity.this, RoutingActivity.class);
+            Intent targetIntent = new Intent(WorkerProfileActivity.this, RoutingActivity.class);
             targetIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(targetIntent);
         });
@@ -51,11 +53,11 @@ public class ProfileActivity extends AppCompatActivity {
     private void observeProfileData() {
         viewModel.getProfileDetails().observe(this, data -> {
             if (data != null) {
-                ArrayList<KeyValueModel> details = viewModel.getEmployerProfileDetailsList(data);
+                ArrayList<KeyValueModel> details = viewModel.getWorkerProfileDetailsList(data);
                 adapter.submitList(details);
             }
         });
-        viewModel.getEmployerProfile();
+        viewModel.getWorkerProfile();
     }
 
     private void setupAdapter() {

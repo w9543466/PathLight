@@ -11,4 +11,17 @@ public enum ApplicationStatus {
     public String getStatus() {
         return status;
     }
+
+    public String displayableStatus() {
+        switch (this) {
+            case APPLIED:
+                return "Applied";
+            case REJECTED:
+                return "Rejected";
+            case ACCEPTED:
+                return "Accepted";
+            default:
+                return "Unknown status";
+        }
+    }
 }

@@ -64,7 +64,7 @@
             android:clickable="false"
             android:focusable="false"
             android:padding="5dp"
-            android:text="@{model.work.workStatus.displayableStatus}"
+            android:text="@{model.applicationStatus.displayableStatus()}"
             android:textColor="@color/text_color"
             app:chipBackgroundColor="@color/button_bg_color"
             app:chipStrokeWidth="0dp"

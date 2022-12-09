@@ -72,6 +72,6 @@ public class WorkDto {
 
     public String getFormattedStartTime() {
         //TODO
-        return startTime + "";
+        return startTime.get() + "";
     }
 }

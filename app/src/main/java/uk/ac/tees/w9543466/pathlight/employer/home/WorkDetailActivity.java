@@ -39,7 +39,11 @@ public class WorkDetailActivity extends AppCompatActivity {
 
     private void setupAdapter() {
         binding.workDetailsLayout.recyclerView.setAdapter(adapter);
-        viewModel.getSelectedWork().observe(this, data -> adapter.submitList(data.displayableList()));
+        viewModel.getSelectedWork().observe(this, data -> {
+            if (data != null) {
+                adapter.submitList(data.displayableList());
+            }
+        });
     }
 
     private void setupClickers() {

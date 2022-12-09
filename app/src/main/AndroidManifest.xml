@@ -66,6 +66,25 @@
             android:name=".worker.WorkerApplications"
             android:exported="false"
             android:theme="@style/Theme.PathLight.LightStatusBar" />
+        <activity
+            android:name=".auth.UserRoleActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PathLight.LightStatusBar" />
+
+        <activity
+            android:name=".auth.EmployerSignupActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PathLight.LightStatusBar" />
+
+        <activity
+            android:name=".auth.WorkerSignupActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PathLight.LightStatusBar" />
+
+        <activity
+            android:name=".worker.WorkerProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PathLight.LightStatusBar" />
     </application>
 
 </manifest>

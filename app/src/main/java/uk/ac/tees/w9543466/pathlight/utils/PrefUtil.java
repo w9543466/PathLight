@@ -28,6 +28,12 @@ public class PrefUtil {
         saveString(Keys.KEY_ROLE, role);
     }
 
+    public void deleteLoginInfo() {
+        saveString(Keys.KEY_EMAIL, "");
+        saveString(Keys.KEY_PWD, "");
+        saveString(Keys.KEY_ROLE, "");
+    }
+
     public boolean isLoggedIn() {
         return !getString(Keys.KEY_EMAIL).equals("");
     }

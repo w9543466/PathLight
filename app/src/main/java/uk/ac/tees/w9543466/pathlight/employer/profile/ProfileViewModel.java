@@ -16,6 +16,7 @@ import uk.ac.tees.w9543466.pathlight.db.PathLightDatabase;
 import uk.ac.tees.w9543466.pathlight.db.ProfileDao;
 import uk.ac.tees.w9543466.pathlight.db.ProfileEntity;
 import uk.ac.tees.w9543466.pathlight.employer.EmployerRepo;
+import uk.ac.tees.w9543466.pathlight.utils.PrefUtil;
 import uk.ac.tees.w9543466.pathlight.utils.ThreadWorker;
 import uk.ac.tees.w9543466.pathlight.worker.WorkerRepo;
 
@@ -26,12 +27,16 @@ public class ProfileViewModel extends AndroidViewModel {
     public ObservableField<String> firstName = new ObservableField<>("");
     private final ProfileDao profileDao;
     private final Gson gson = new Gson();
+    private final PrefUtil prefUtil;
+    private final PathLightDatabase database;
 
     public ProfileViewModel(@NonNull Application application) {
         super(application);
         employerRepo = new EmployerRepo(application);
         workerRepo = new WorkerRepo(application);
-        profileDao = PathLightDatabase.getDatabase(application).profileDao();
+        database = PathLightDatabase.getDatabase(application);
+        profileDao = database.profileDao();
+        prefUtil = new PrefUtil(application);
     }
 
     public LiveData<ProfileEntity> getProfileDetails() {
@@ -65,10 +70,22 @@ public class ProfileViewModel extends AndroidViewModel {
     }
 
 
-    public ArrayList<KeyValueModel> getProfileDetailsList(ProfileEntity data) {
+    public ArrayList<KeyValueModel> getWorkerProfileDetailsList(ProfileEntity data) {
         ArrayList<KeyValueModel> list = new ArrayList<>();
         list.add(new KeyValueModel("Name", data.getFirstName() + " " + data.getLastName()));
         list.add(new KeyValueModel("Email", data.getEmail()));
         return list;
+    }
+
+    public ArrayList<KeyValueModel> getEmployerProfileDetailsList(ProfileEntity data) {
+        ArrayList<KeyValueModel> list = new ArrayList<>();
+        list.add(new KeyValueModel("Name", data.getFirstName() + " " + data.getLastName()));
+        list.add(new KeyValueModel("Email", data.getEmail()));
+        return list;
+    }
+
+    public void logout() {
+        prefUtil.deleteLoginInfo();
+        ThreadWorker.execute(database::clearAllTables);
     }
 }
