@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import uk.ac.tees.w9543466.pathlight.databinding.FragmentHomeBinding;
-import uk.ac.tees.w9543466.pathlight.employer.works.MyWorkAdapter;
 import uk.ac.tees.w9543466.pathlight.employer.profile.ProfileActivity;
 import uk.ac.tees.w9543466.pathlight.employer.profile.ProfileViewModel;
+import uk.ac.tees.w9543466.pathlight.employer.works.MyWorkAdapter;
 
 public class HomeFragment extends Fragment {
 
@@ -31,9 +31,14 @@ public class HomeFragment extends Fragment {
         binding.setViewModel(homeViewModel);
         binding.setProfileVm(profileViewModel);
         setupWorkAdapter();
-        observeWorkData();
         setupClickers();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        observeWorkData();
     }
 
     private void setupClickers() {

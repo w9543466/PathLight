@@ -9,8 +9,15 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import uk.ac.tees.w9543466.pathlight.databinding.LayoutApplicationsItemBinding;
+import uk.ac.tees.w9543466.pathlight.employer.home.DataCallback;
 
 public class ApplicationsAdapter extends ListAdapter<WorkApplication, ApplicationsAdapter.ApplicationVh> {
+
+    private DataCallback<WorkApplication> callback;
+
+    public void setCallback(DataCallback<WorkApplication> callback) {
+        this.callback = callback;
+    }
 
     public ApplicationsAdapter() {
         super(DIFF_CALLBACK);
@@ -27,6 +34,7 @@ public class ApplicationsAdapter extends ListAdapter<WorkApplication, Applicatio
     @Override
     public void onBindViewHolder(@NonNull ApplicationVh holder, int position) {
         holder.bindTo(getItem(position));
+        holder.itemView.btnAccept.setOnClickListener(v -> callback.onData(getItem(position)));
     }
 
     private static final DiffUtil.ItemCallback<WorkApplication> DIFF_CALLBACK =

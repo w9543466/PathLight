@@ -1,5 +1,7 @@
 package uk.ac.tees.w9543466.pathlight.employer.works;
 
+import static uk.ac.tees.w9543466.pathlight.utils.TimeFormatterUtil.format;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -89,8 +91,7 @@ public class WorkItem {
     }
 
     public String getFormattedStartTime() {
-        //TODO
-        return startTime + "";
+        return format(startTime);
     }
 
     public void setStartTime(long startTime) {
@@ -120,9 +121,26 @@ public class WorkItem {
     public ArrayList<KeyValueModel> displayableList() {
         ArrayList<KeyValueModel> list = new ArrayList<>();
         list.add(new KeyValueModel("Skills required", skills));
-        list.add(new KeyValueModel("Starts on", startTime + ""));//TODO format date
+        list.add(new KeyValueModel("Starts on", format(startTime) + ""));
         list.add(new KeyValueModel("Pays", totalRate + " GBP"));
         return list;
+    }
+
+    @Override
+    public String toString() {
+        return "WorkItem{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", skills='" + skills + '\'' +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                ", startTime=" + startTime +
+                ", totalRate=" + totalRate +
+                ", status='" + status + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", employerName='" + employerName + '\'' +
+                ", applied=" + applied +
+                '}';
     }
 
     @Override

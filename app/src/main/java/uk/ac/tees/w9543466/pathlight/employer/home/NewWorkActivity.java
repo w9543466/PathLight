@@ -22,6 +22,7 @@ import uk.ac.tees.w9543466.pathlight.utils.LocationUtil;
 public class NewWorkActivity extends AppCompatActivity {
 
     public static final String BUNDLE_KEY_EDIT_MODE = "edit_mode";
+    public static final String BUNDLE_KEY_WORK_ID = "selectedWorkId";
     private WorkViewModel viewModel;
     private ActivityNewWorkBinding binding;
 
@@ -31,6 +32,11 @@ public class NewWorkActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(WorkViewModel.class);
         binding = ActivityNewWorkBinding.inflate(getLayoutInflater());
         binding.setViewModel(viewModel);
+        Intent intent = getIntent();
+        boolean isEditMode = intent.getBooleanExtra(BUNDLE_KEY_EDIT_MODE, false);
+        long workId = intent.getLongExtra(BUNDLE_KEY_WORK_ID, -1);
+        viewModel.setEditMode(isEditMode);
+        viewModel.setSelectedWorkId(workId);
         setContentView(binding.getRoot());
         setupClickers();
         checkPermission();
@@ -55,7 +61,7 @@ public class NewWorkActivity extends AppCompatActivity {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
         dialog.setTitle("Success");
         dialog.setMessage("Work created successfully. Now workers will be seeing this work and you can see the applications in the work details page.");
-        dialog.setNeutralButton("Go to home", (dialog1, which) -> navigateToHome());
+        dialog.setNeutralButton("Go to home page", (dialog1, which) -> navigateToHome());
         dialog.setOnDismissListener(dialog1 -> navigateToHome());
         dialog.show();
     }
@@ -70,7 +76,7 @@ public class NewWorkActivity extends AppCompatActivity {
                 DateTimePickerUtil.openDatePicker(getSupportFragmentManager(), "Select work start date and time", true, date -> {
                     viewModel.onStartTimeSelected(date.getTime());
                 }));
-        binding.btnContainer.button2.setOnClickListener(v -> viewModel.createWork());
+        binding.btnContainer.button2.setOnClickListener(v -> viewModel.onFormSubmitted());
     }
 
     ActivityResultLauncher<String[]> locationPermissionRequest = registerForActivityResult(new ActivityResultContracts

@@ -1,6 +1,7 @@
 package uk.ac.tees.w9543466.pathlight.employer.works;
 
 import static uk.ac.tees.w9543466.pathlight.utils.TextUtil.isValid;
+import static uk.ac.tees.w9543466.pathlight.utils.TimeFormatterUtil.format;
 
 import android.app.Application;
 import android.location.Location;
@@ -17,14 +18,20 @@ import com.google.gson.Gson;
 import java.util.Date;
 
 import uk.ac.tees.w9543466.pathlight.BlankResponse;
+import uk.ac.tees.w9543466.pathlight.db.PathLightDatabase;
+import uk.ac.tees.w9543466.pathlight.db.WorkDao;
+import uk.ac.tees.w9543466.pathlight.db.WorkEntity;
 import uk.ac.tees.w9543466.pathlight.employer.EmployerRepo;
+import uk.ac.tees.w9543466.pathlight.utils.ThreadWorker;
 import uk.ac.tees.w9543466.pathlight.utils.TimeFormatterUtil;
 
 public class WorkViewModel extends AndroidViewModel {
 
     private final EmployerRepo employerRepo;
-    private final Gson gson = new Gson();
+    private final WorkDao workDao;
+    private long selectedWorkId;
 
+    public ObservableBoolean isEditMode = new ObservableBoolean();
     public ObservableField<String> title = new ObservableField<>();
     public ObservableField<String> skills = new ObservableField<>();
     public ObservableField<String> amount = new ObservableField<>();
@@ -38,6 +45,8 @@ public class WorkViewModel extends AndroidViewModel {
     public WorkViewModel(@NonNull Application application) {
         super(application);
         employerRepo = new EmployerRepo(application);
+        PathLightDatabase database = PathLightDatabase.getDatabase(application);
+        workDao = database.workDao();
     }
 
     public void onStartTimeSelected(Date time) {
@@ -54,35 +63,86 @@ public class WorkViewModel extends AndroidViewModel {
         this.location = location;
     }
 
-    public void createWork() {
+    public void onFormSubmitted() {
+        WorkRequest request = getWorkRequest();
+        if (isEditMode.get()) callUpdateWorkApi(request);
+        else callCreateWorkApi(request);
+    }
+
+    private WorkRequest getWorkRequest() {
         WorkRequest request = new WorkRequest();
         String titleValue = this.title.get();
         String skillsValue = skills.get();
         String amountValue = amount.get();
         String startTimeValue = startTime.get();
-        if (isValid(titleValue, skillsValue, amountValue, startTimeValue) && location != null) {
-            request.setTitle(titleValue);
-            request.setSkills(skillsValue);
-            request.setTotalRate(Double.parseDouble(amountValue));
-            request.setLat(location.getLatitude());
-            request.setLng(location.getLongitude());
-            request.setStartTime(TimeFormatterUtil.toMillis(startTimeValue));
-            proceedEnabled.set(false);
-            progress.set(true);
-            employerRepo.createWork(request, response -> {
-                proceedEnabled.set(true);
-                progress.set(false);
-                createWorkLiveData.postValue(response);
-            });
-        } else {
+        if (!isValid(titleValue, skillsValue, amountValue, startTimeValue) && location != null) {
             BlankResponse value = new BlankResponse();
             value.setSuccess(false);
             value.setMessage("All fields are required");
             createWorkLiveData.postValue(value);
+            return null;
         }
+        if (selectedWorkId != -1) {
+            request.setId(selectedWorkId);
+        }
+        request.setTitle(titleValue);
+        request.setSkills(skillsValue);
+        request.setTotalRate(Double.parseDouble(amountValue));
+        request.setLat(location.getLatitude());
+        request.setLng(location.getLongitude());
+        request.setStartTime(TimeFormatterUtil.toMillis(startTimeValue));
+        proceedEnabled.set(false);
+        progress.set(true);
+        return request;
+    }
+
+    private void callUpdateWorkApi(WorkRequest request) {
+        employerRepo.updateWork(request, this::onWorkCreated);
+    }
+
+    private void callCreateWorkApi(WorkRequest request) {
+        employerRepo.createWork(request, this::onWorkCreated);
+    }
+
+    private void onWorkCreated(BlankResponse response) {
+        proceedEnabled.set(true);
+        progress.set(false);
+        createWorkLiveData.postValue(response);
     }
 
     public LiveData<BlankResponse> getCreateWorkLiveData() {
         return createWorkLiveData;
+    }
+
+    public void setEditMode(boolean isEditMode) {
+        this.isEditMode.set(isEditMode);
+        updateForm();
+    }
+
+    private void updateForm(WorkItem item) {
+        if(item == null) return;
+        title.set(item.getTitle());
+        skills.set(item.getSkills());
+        amount.set(item.getTotalRate() + "");
+        startTime.set(format(item.getStartTime()));
+    }
+
+    private void updateForm() {
+        if (!isEditMode.get() || selectedWorkId == -1) {
+            return;
+        }
+        ThreadWorker.execute(() -> {
+            Gson gson = new Gson();
+            WorkEntity data = workDao.get(selectedWorkId);
+            WorkItem item = gson.fromJson(gson.toJson(data), WorkItem.class);
+            updateForm(item);
+        });
+
+    }
+
+
+    public void setSelectedWorkId(long selectedWorkId) {
+        this.selectedWorkId = selectedWorkId;
+        updateForm();
     }
 }

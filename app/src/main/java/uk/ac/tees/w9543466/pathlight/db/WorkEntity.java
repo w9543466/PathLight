@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "table_work")
 public class WorkEntity {
     @PrimaryKey
-    @ColumnInfo(name = "work_id")
-    private long workId;
+    @ColumnInfo(name = "id")
+    private long id;
     @ColumnInfo(name = "title")
     private String title;
     @ColumnInfo(name = "skills")
@@ -30,12 +30,12 @@ public class WorkEntity {
     @ColumnInfo(name = "status")
     private String status;
 
-    public long getWorkId() {
-        return workId;
+    public long getId() {
+        return id;
     }
 
-    public void setWorkId(long workId) {
-        this.workId = workId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {

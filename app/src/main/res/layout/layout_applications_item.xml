@@ -8,9 +8,12 @@
         <variable
             name="model"
             type="uk.ac.tees.w9543466.pathlight.employer.applications.WorkApplication" />
+
+        <import type="uk.ac.tees.w9543466.pathlight.employer.applications.ApplicationStatus" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
@@ -116,26 +119,29 @@
 
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnAccept"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="Accept"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                android:enabled="@{model.applicationStatus == ApplicationStatus.APPLIED}"
+                android:text="@{model.applicationStatus == ApplicationStatus.APPLIED ? `Accept` : `Accepted`}"
+                app:layout_constraintEnd_toEndOf="@+id/textView16"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                tools:text="Accept" />
 
             <Button
+                android:id="@+id/btnReject"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Reject"
                 android:textColor="@color/red"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/textView16"
-                app:layout_constraintStart_toEndOf="@+id/button3"
-                app:layout_constraintTop_toTopOf="@+id/button3" />
+                app:layout_constraintStart_toEndOf="@+id/btnAccept"
+                app:layout_constraintTop_toTopOf="@+id/btnAccept" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

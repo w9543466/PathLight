@@ -50,6 +50,7 @@
             android:id="@+id/rvApplications"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="@{viewModel.applicationDataStatus == DataStatus.LOADING  ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

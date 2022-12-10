@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
+import uk.ac.tees.w9543466.pathlight.BlankResponse;
 import uk.ac.tees.w9543466.pathlight.DataStatus;
 import uk.ac.tees.w9543466.pathlight.employer.EmployerRepo;
 
@@ -18,6 +19,7 @@ public class ApplicationsViewModel extends AndroidViewModel {
     private final EmployerRepo employerRepo;
     private final MutableLiveData<List<WorkApplication>> applicationLiveData = new MutableLiveData<>();
     public final ObservableField<DataStatus> applicationDataStatus = new ObservableField<>(DataStatus.LOADING);
+    private final MutableLiveData<BlankResponse> applicationActionLiveData = new MutableLiveData<>();
 
     public ApplicationsViewModel(@NonNull Application application) {
         super(application);
@@ -26,6 +28,10 @@ public class ApplicationsViewModel extends AndroidViewModel {
 
     public LiveData<List<WorkApplication>> getApplicationLiveData() {
         return applicationLiveData;
+    }
+
+    public LiveData<BlankResponse> getApplicationActionLiveData() {
+        return applicationActionLiveData;
     }
 
     public void setSelectedWorkId(long selectedWorkId) {
@@ -51,6 +57,16 @@ public class ApplicationsViewModel extends AndroidViewModel {
             } else {
                 applicationDataStatus.set(DataStatus.ERROR);
             }
+        });
+    }
+
+    public void onApplicationAccepted(WorkApplication application) {
+        applicationDataStatus.set(DataStatus.LOADING);
+        employerRepo.acceptApplication(application.getId(), response -> {
+            if (!response.isSuccess()) {
+                applicationDataStatus.set(DataStatus.SUCCESS);
+            }
+            applicationActionLiveData.postValue(response);
         });
     }
 }

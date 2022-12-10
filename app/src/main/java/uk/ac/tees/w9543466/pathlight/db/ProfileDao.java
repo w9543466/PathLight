@@ -12,7 +12,7 @@ public interface ProfileDao {
     @Query("SELECT * FROM table_profile LIMIT 1")
     LiveData<ProfileEntity> get();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ProfileEntity data);
 
     @Query("delete from table_profile")

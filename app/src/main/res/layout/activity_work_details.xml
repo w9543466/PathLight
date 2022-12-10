@@ -7,6 +7,8 @@
         <variable
             name="viewModel"
             type="uk.ac.tees.w9543466.pathlight.employer.home.HomeViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
 
@@ -47,6 +49,18 @@
                 android:layout_height="match_parent"
                 app:model="@{viewModel.selectedWork}" />
         </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.progressVisible ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

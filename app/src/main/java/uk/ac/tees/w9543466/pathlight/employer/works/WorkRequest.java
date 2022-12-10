@@ -2,12 +2,21 @@ package uk.ac.tees.w9543466.pathlight.employer.works;
 
 public class WorkRequest {
 
+    private long id;
     private String title;
     private String skills;
     private double lat;
     private double lng;
     private double totalRate;
     private long startTime;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

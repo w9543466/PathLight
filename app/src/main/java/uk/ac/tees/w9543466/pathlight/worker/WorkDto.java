@@ -3,7 +3,7 @@ package uk.ac.tees.w9543466.pathlight.worker;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
-import java.util.Objects;
+import uk.ac.tees.w9543466.pathlight.utils.TimeFormatterUtil;
 
 public class WorkDto {
     private long id;
@@ -71,7 +71,13 @@ public class WorkDto {
     }
 
     public String getFormattedStartTime() {
-        //TODO
+        String millisAsString = startTime.get();
+        try {
+            long millis = Long.parseLong(millisAsString);
+            return TimeFormatterUtil.format(millis);
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
         return startTime.get() + "";
     }
 }

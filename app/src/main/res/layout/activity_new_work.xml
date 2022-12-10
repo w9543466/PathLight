@@ -159,7 +159,7 @@
             android:layout_height="@dimen/btn_height"
             android:layout_margin="20dp"
             app:btnEnabled="@{viewModel.proceedEnabled}"
-            app:btnText="@{`Create work`}"
+            app:btnText="@{viewModel.isEditMode ? `Update work`: `Create work`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -3,11 +3,7 @@ package uk.ac.tees.w9543466.pathlight.employer.home;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
-import uk.ac.tees.w9543466.pathlight.R;
 import uk.ac.tees.w9543466.pathlight.databinding.ActivityEmployerHomeBinding;
 
 public class EmployerHome extends AppCompatActivity {

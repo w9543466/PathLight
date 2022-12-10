@@ -14,16 +14,16 @@ public interface WorkDao {
     @Query("SELECT * FROM table_work")
     List<WorkEntity> getAll();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(WorkEntity work);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<WorkEntity> works);
 
-    @Query("select * from table_work where work_id=:id")
+    @Query("select * from table_work where id=:id")
     WorkEntity get(long id);
 
-    @Query("delete from table_work where work_id=:id")
+    @Query("delete from table_work where id=:id")
     void delete(long id);
 
     @Query("delete from table_work")

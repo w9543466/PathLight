@@ -2,6 +2,7 @@ package uk.ac.tees.w9543466.pathlight.employer.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -44,6 +45,14 @@ public class WorkDetailActivity extends AppCompatActivity {
                 adapter.submitList(data.displayableList());
             }
         });
+
+        viewModel.getDeleteWorkLiveData().observe(this, data -> {
+            if (data != null && data.isSuccess()) {
+                navigateUpTo(new Intent(WorkDetailActivity.this, EmployerHome.class));
+            } else {
+                Toast.makeText(this, "We are unable to reach our server right now. Please try again later.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupClickers() {
@@ -72,15 +81,14 @@ public class WorkDetailActivity extends AppCompatActivity {
             viewModel.deleteSelectedWork();
             dialog1.dismiss();
         });
-        dialog.setNegativeButton("Cancel", (dialog1, which) -> {
-            dialog1.dismiss();
-        });
+        dialog.setNegativeButton("Cancel", (dialog1, which) -> dialog1.dismiss());
         dialog.show();
     }
 
     private void startWorkEditActivity() {
         Intent intent = new Intent(this, NewWorkActivity.class);
         intent.putExtra(NewWorkActivity.BUNDLE_KEY_EDIT_MODE, true);
+        intent.putExtra(NewWorkActivity.BUNDLE_KEY_WORK_ID, viewModel.getSelectedWorkId());
         startActivity(intent);
     }
 }
