@@ -85,6 +85,7 @@ public class ApiProvider {
         });
     }
 
+    @SuppressWarnings("unchecked")
     public <T> void call(Call<RawResponse<T>> call, ResponseCallback<RawResponse<T>> callback) {
         call.enqueue(new Callback<RawResponse<T>>() {
             @Override

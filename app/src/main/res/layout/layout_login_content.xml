@@ -94,13 +94,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:btnEnabled="@{viewModel.loginEnabled}"
+            app:btnText="@{@string/text_login}"
             app:layout_constraintBottom_toTopOf="@+id/switch2"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout"
             app:layout_constraintTop_toBottomOf="@+id/textError"
-            app:progressVisible="@{viewModel.loginProgress}"
-            app:btnText="@{@string/text_login}" />
+            app:progressVisible="@{viewModel.loginProgress}" />
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch2"
@@ -120,6 +120,7 @@
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="@{viewModel.forgotPwdEnabled}"
             android:text="@string/text_forgot_password"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/switch2"

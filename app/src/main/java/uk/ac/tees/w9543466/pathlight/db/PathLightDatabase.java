@@ -10,7 +10,7 @@ import kotlin.jvm.Volatile;
 
 @Database(
         entities = {WorkEntity.class, ProfileEntity.class},
-        version = 2
+        version = 2, exportSchema = false
 )
 public abstract class PathLightDatabase extends RoomDatabase {
     public abstract WorkDao workDao();

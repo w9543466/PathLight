@@ -21,10 +21,14 @@ public class TimeFormatterUtil {
         return -1;
     }
 
-    public static String format(long millis) {
+    public static String format(long millis, String format) {
         Calendar instance = Calendar.getInstance();
         instance.setTimeInMillis(millis);
-        DateFormat formatter = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+        DateFormat formatter = new SimpleDateFormat(format, Locale.ENGLISH);
         return formatter.format(instance.getTime());
+    }
+
+    public static String format(long millis) {
+        return format(millis, "EE MMM dd HH:mm:ss z yyyy");
     }
 }

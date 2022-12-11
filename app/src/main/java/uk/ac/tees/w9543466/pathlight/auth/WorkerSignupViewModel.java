@@ -13,6 +13,7 @@ import java.util.Date;
 import uk.ac.tees.w9543466.pathlight.BlankResponse;
 import uk.ac.tees.w9543466.pathlight.auth.models.WorkerSignupRequest;
 import uk.ac.tees.w9543466.pathlight.utils.PrefUtil;
+import uk.ac.tees.w9543466.pathlight.utils.TimeFormatterUtil;
 
 public class WorkerSignupViewModel extends AndroidViewModel {
 
@@ -76,6 +77,7 @@ public class WorkerSignupViewModel extends AndroidViewModel {
     }
 
     public void onDobSelected(Date time) {
-        dob.set(time.toString());
+        String formatted = TimeFormatterUtil.format(time.getTime(), "DD/MMM/YYYY");
+        dob.set(formatted);
     }
 }

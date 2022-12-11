@@ -28,4 +28,9 @@ public class AuthRepo {
         LoginApi services = provider.getLoginApi();
         provider.format(services.signupWorker(request), BlankResponse.class, callback);
     }
+
+    public void forgotPassword(String email, ResponseCallback<BlankResponse> callback) {
+        LoginApi services = provider.getLoginApi();
+        provider.format(services.forgotPwd(email), BlankResponse.class, callback);
+    }
 }
