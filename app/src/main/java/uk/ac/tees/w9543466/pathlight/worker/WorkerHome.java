@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -55,10 +56,14 @@ public class WorkerHome extends AppCompatActivity {
 
     private void navigateToMaps(int position) {
         WorkDto work = viewModel.getWorkData(position);
-        Uri gmmIntentUri = Uri.parse("google.streetview:cbll=" + work.getLat() + "," + work.getLng());
+        Uri gmmIntentUri = Uri.parse("geo:" + work.getLat() + "," + work.getLng());
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapIntent);
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        } else {
+            Toast.makeText(this, "Google map is not installed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void promptProposedRate(int position) {
