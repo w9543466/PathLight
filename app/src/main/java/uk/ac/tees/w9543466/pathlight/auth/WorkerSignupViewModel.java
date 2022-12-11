@@ -77,7 +77,7 @@ public class WorkerSignupViewModel extends AndroidViewModel {
     }
 
     public void onDobSelected(Date time) {
-        String formatted = TimeFormatterUtil.format(time.getTime(), "DD/MMM/YYYY");
+        String formatted = TimeFormatterUtil.format(time.getTime(), "dd/MMM/YYYY");
         dob.set(formatted);
     }
 }
