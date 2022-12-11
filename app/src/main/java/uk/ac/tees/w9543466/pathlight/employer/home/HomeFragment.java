@@ -32,6 +32,7 @@ public class HomeFragment extends Fragment {
         binding.setProfileVm(profileViewModel);
         setupWorkAdapter();
         setupClickers();
+        profileViewModel.getEmployerProfile();
         return binding.getRoot();
     }
 

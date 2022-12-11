@@ -58,7 +58,7 @@ public class WorkDto {
         return startTime;
     }
 
-    public void setStartTime(double startTime) {
+    public void setStartTime(long startTime) {
         this.startTime.set(startTime + "");
     }
 
