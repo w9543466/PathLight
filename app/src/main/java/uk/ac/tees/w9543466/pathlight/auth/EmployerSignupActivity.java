@@ -2,6 +2,7 @@ package uk.ac.tees.w9543466.pathlight.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,11 +28,14 @@ public class EmployerSignupActivity extends AppCompatActivity {
     private void observeSignupResponse() {
         viewModel.getSignupResponse().observe(this, response -> {
             if (response != null) {
-                finish();
-                startActivity(new Intent(this, RoutingActivity.class));
+                if (response.isSuccess()) {
+                    finish();
+                    startActivity(new Intent(this, RoutingActivity.class));
+                } else {
+                    Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        viewModel.doSignUp();
     }
 
     private void setupClickers() {

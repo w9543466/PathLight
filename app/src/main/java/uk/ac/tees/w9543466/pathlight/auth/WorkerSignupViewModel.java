@@ -1,5 +1,7 @@
 package uk.ac.tees.w9543466.pathlight.auth;
 
+import static uk.ac.tees.w9543466.pathlight.utils.TextUtil.isValid;
+
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -44,9 +46,6 @@ public class WorkerSignupViewModel extends AndroidViewModel {
     }
 
     public void doSignUp() {
-        loginProgress.set(true);
-        loginEnabled.set(false);
-
         WorkerSignupRequest request = new WorkerSignupRequest();
         String email = this.email.get();
         String pwd = password.get();
@@ -57,6 +56,15 @@ public class WorkerSignupViewModel extends AndroidViewModel {
         String languages = this.languages.get();
         String skills = this.skills.get();
 
+        if (!isValid(email, pwd, firstName, lastName, jobTitle, dob, languages, skills)) {
+            BlankResponse response = new BlankResponse();
+            response.setSuccess(false);
+            response.setMessage("All fields are required");
+            signupResponse.postValue(response);
+            return;
+        }
+        loginProgress.set(true);
+        loginEnabled.set(false);
         request.setEmail(email);
         request.setPassword(pwd);
         request.setFirstName(firstName);
