@@ -36,6 +36,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
                 app:navigationIcon="@drawable/ic_arrow_back"
+                app:navigationIconTint="@color/text_color"
                 app:title="My Profile"
                 app:titleCentered="true" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>

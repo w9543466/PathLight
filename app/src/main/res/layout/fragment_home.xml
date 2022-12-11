@@ -44,7 +44,8 @@
             android:src="@drawable/ic_settings"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:tint="@color/text_color" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/materialDivider"

@@ -42,7 +42,7 @@ public class WorkerHome extends AppCompatActivity {
         DividerItemDecoration decor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         binding.rvWorkList.addItemDecoration(decor);
         adapter.setListener(this::promptProposedRate);
-        adapter.setItemClickListener(this::navigateToMaps);
+        adapter.setItemClickListener(this::showNavConfirmation);
         binding.rvWorkList.setAdapter(adapter);
         viewModel.getWorkLiveData().observe(this, adapter::submitList);
     }
@@ -54,9 +54,26 @@ public class WorkerHome extends AppCompatActivity {
         binding.settings.setOnClickListener(v -> startActivity(new Intent(this, WorkerProfileActivity.class)));
     }
 
+    private void showNavConfirmation(int position) {
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
+        //dialog.setTitle("Start navigation?");
+        dialog.setTitle("Open google maps?");
+        //dialog.setMessage("Do you want to start navigation to the work location.");
+        dialog.setMessage("This action will leave the app an open google apps. Click Ok to proceed");
+        dialog.setPositiveButton("Ok", (dialog1, which) -> {
+            dialog1.dismiss();
+            navigateToMaps(position);
+        });
+        dialog.setNegativeButton("Cancel", (dialog1, which) -> {
+            dialog1.dismiss();
+        });
+        dialog.create().show();
+    }
+
     private void navigateToMaps(int position) {
         WorkDto work = viewModel.getWorkData(position);
-        Uri gmmIntentUri = Uri.parse("geo:" + work.getLat() + "," + work.getLng());
+        Uri gmmIntentUri = Uri.parse("https://www.google.com/maps/search/?api=1&query=" + work.getLat() + "%2C" + work.getLng());
+        //Uri gmmIntentUri = Uri.parse("google.navigation:q=" + work.getLat() + "," + work.getLng());
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
