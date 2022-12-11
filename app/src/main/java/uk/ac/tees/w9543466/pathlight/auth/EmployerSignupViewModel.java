@@ -67,8 +67,8 @@ public class EmployerSignupViewModel extends AndroidViewModel {
             loginEnabled.set(true);
             if (response.isSuccess()) {
                 prefUtil.saveLoginInfo(email, pwd, UserRole.EMPLOYER.getRole());
-                signupResponse.postValue(response);
             }
+            signupResponse.postValue(response);
         });
     }
 }
