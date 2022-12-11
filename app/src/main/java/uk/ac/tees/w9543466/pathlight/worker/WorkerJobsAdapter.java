@@ -14,9 +14,14 @@ import uk.ac.tees.w9543466.pathlight.databinding.LayoutWorkerJobItemBinding;
 public class WorkerJobsAdapter extends ListAdapter<WorkDto, WorkerJobsAdapter.WorkerJobVh> {
 
     private ListItemClickListener listener;
+    private ListItemClickListener itemClickListener;
 
     public void setListener(ListItemClickListener listener) {
         this.listener = listener;
+    }
+
+    public void setItemClickListener(ListItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     public WorkerJobsAdapter() {
@@ -35,6 +40,7 @@ public class WorkerJobsAdapter extends ListAdapter<WorkDto, WorkerJobsAdapter.Wo
     public void onBindViewHolder(@NonNull WorkerJobVh holder, int position) {
         holder.bindTo(getItem(position));
         holder.itemView.btnContainer.button2.setOnClickListener(v -> listener.onItemClick(position));
+        holder.itemView.getRoot().setOnClickListener(v -> itemClickListener.onItemClick(position));
     }
 
     private static final DiffUtil.ItemCallback<WorkDto> DIFF_CALLBACK =

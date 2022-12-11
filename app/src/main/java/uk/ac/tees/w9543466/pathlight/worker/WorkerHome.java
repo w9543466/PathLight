@@ -1,6 +1,7 @@
 package uk.ac.tees.w9543466.pathlight.worker;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -39,16 +40,25 @@ public class WorkerHome extends AppCompatActivity {
     private void setupAdapter() {
         DividerItemDecoration decor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         binding.rvWorkList.addItemDecoration(decor);
+        adapter.setListener(this::promptProposedRate);
+        adapter.setItemClickListener(this::navigateToMaps);
         binding.rvWorkList.setAdapter(adapter);
         viewModel.getWorkLiveData().observe(this, adapter::submitList);
     }
 
     private void setUpClickers() {
         binding.viewApplications.setOnClickListener(v -> startActivity(new Intent(WorkerHome.this, WorkerApplications.class)));
-        adapter.setListener(this::promptProposedRate);
         binding.noDataView.btnAction.setOnClickListener(v -> viewModel.getAllWorks());
         binding.errorView.btnAction.setOnClickListener(v -> viewModel.getAllWorks());
         binding.settings.setOnClickListener(v -> startActivity(new Intent(this, WorkerProfileActivity.class)));
+    }
+
+    private void navigateToMaps(int position) {
+        WorkDto work = viewModel.getWorkData(position);
+        Uri gmmIntentUri = Uri.parse("google.streetview:cbll=" + work.getLat() + "," + work.getLng());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
     }
 
     private void promptProposedRate(int position) {

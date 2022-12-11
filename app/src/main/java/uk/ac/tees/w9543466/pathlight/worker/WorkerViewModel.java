@@ -83,6 +83,8 @@ public class WorkerViewModel extends AndroidViewModel {
                         dto.setStartTime(work.getStartTime());
                         dto.setApplyInProgress(false);
                         dto.setTotalRate(work.getTotalRate());
+                        dto.setLat(work.getLat());
+                        dto.setLng(work.getLng());
                         return dto;
                     }).collect(Collectors.toList());
                     updateWorks(converted);
