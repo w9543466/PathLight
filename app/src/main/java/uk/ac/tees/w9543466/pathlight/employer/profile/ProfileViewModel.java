@@ -74,6 +74,14 @@ public class ProfileViewModel extends AndroidViewModel {
         ArrayList<KeyValueModel> list = new ArrayList<>();
         list.add(new KeyValueModel("Name", data.getFirstName() + " " + data.getLastName()));
         list.add(new KeyValueModel("Email", data.getEmail()));
+        String dob = data.getDob();
+        String skills = data.getSkills();
+        if (dob != null && !dob.isEmpty()) {
+            list.add(new KeyValueModel("Date of birth", dob));
+        }
+        if (skills != null && !skills.isEmpty()) {
+            list.add(new KeyValueModel("Designation", skills));
+        }
         return list;
     }
 
